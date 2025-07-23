@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: race-command-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: user
+    password: password
+
+rabbitmq:
+  exchange: race.exchange
+  routing-key-created: race.created
+  routing-key-deleted: race.deleted
+  routing-key-updated: race.updated
+  routing-key-application-deleted: application.deleted
+
+logging:
+  level:
+    root: INFO
+    com.trail.command: DEBUG
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers
+  endpoint:
+    health:
+      show-details: when-authorized
+
+jwt:
+  secret: 58cb2d122cb82a7fd1e3d03c1425fd2bf4a4c8679c5229b4621b01f80cde031ec36ffb4bc5e08bc33554e7d88eabbe0bd30c4d48

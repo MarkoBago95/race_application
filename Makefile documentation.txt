@@ -1,0 +1,304 @@
+# Makefile Documentation
+
+This Makefile provides a comprehensive set of commands to manage the Trail Race Application development environment, build processes, and testing.
+
+## Prerequisites
+
+Before using the Makefile, ensure you have the following installed:
+
+- **Docker & Docker Compose** (for containerized services)
+- **Java 17+** (for Spring Boot services)
+- **Maven 3.6+** (or use included Maven wrapper)
+- **Node.js 16+** (for Angular client)
+- **Make** (GNU Make)
+
+## Quick Start
+
+```bash
+# Start the complete development environment
+make dev-start
+
+# View all available commands
+make help
+```
+
+## Command Categories
+
+### 🚀 Development Environment
+
+| Command | Description |
+|---------|-------------|
+| `make dev-start` | Start complete development environment |
+| `make dev-stop` | Stop all services |
+| `make dev-restart` | Restart all services |
+| `make dev-logs` | Show logs from all services |
+| `make dev-status` | Show status of all containers |
+
+**Example workflow:**
+```bash
+# Start development environment
+make dev-start
+
+# Check logs if something goes wrong
+make dev-logs
+
+# Check container status
+make dev-status
+
+# Stop when done
+make dev-stop
+```
+
+### 🏗️ Build Commands
+
+| Command | Description |
+|---------|-------------|
+| `make build` | Build all services (Java + Docker) |
+| `make build-java` | Build only Java services |
+| `make build-client` | Build only Angular client |
+| `make docker-build` | Build Docker images |
+
+**Example workflow:**
+```bash
+# Build everything from scratch
+make build
+
+# Or build components separately
+make build-java
+make build-client
+make docker-build
+```
+
+### 🧪 Test Commands
+
+| Command | Description |
+|---------|-------------|
+| `make test` | Run all tests |
+| `make test-command` | Run command service tests |
+| `make test-query` | Run query service tests |
+| `make test-client` | Run client tests |
+
+**Example workflow:**
+```bash
+# Run all tests
+make test
+
+# Or run specific service tests
+make test-command
+make test-query
+make test-client
+```
+
+### 🗄️ Database Commands
+
+| Command | Description |
+|---------|-------------|
+| `make db-reset` | Reset database (drop volumes) |
+| `make db-connect` | Connect to PostgreSQL database |
+| `make db-seed` | Manually seed database with test data |
+
+**Example workflow:**
+```bash
+# Reset database when you need clean state
+make db-reset
+
+# Connect to database for manual queries
+make db-connect
+
+# Seed with test data
+make db-seed
+```
+
+### 🛠️ Utility Commands
+
+| Command | Description |
+|---------|-------------|
+| `make install` | Install all dependencies |
+| `make clean` | Clean build artifacts and containers |
+| `make rabbitmq-ui` | Open RabbitMQ management UI |
+| `make health-check` | Check health of all services |
+
+## Service URLs
+
+When development environment is running:
+
+- **Client (Angular):** http://localhost:4200
+- **Command Service:** http://localhost:8080
+- **Query Service:** http://localhost:8081
+- **RabbitMQ Management:** http://localhost:15672 (user/password)
+- **PostgreSQL:** localhost:5432 (postgres/postgres)
+
+## Common Development Workflows
+
+### 🆕 First Time Setup
+
+```bash
+# 1. Install dependencies
+make install
+
+# 2. Start development environment
+make dev-start
+
+# 3. Check that everything is running
+make health-check
+```
+
+### 🔄 Daily Development
+
+```bash
+# Start your day
+make dev-start
+
+# Make code changes...
+
+# Run tests before committing
+make test
+
+# Stop when done
+make dev-stop
+```
+
+### 🐛 Debugging Issues
+
+```bash
+# Check service status
+make dev-status
+
+# View logs for debugging
+make dev-logs
+
+# Check individual service health
+make health-check
+
+# Reset database if data issues
+make db-reset
+
+# Connect to database for manual inspection
+make db-connect
+```
+
+### 🚀 Production Build
+
+```bash
+# Clean everything first
+make clean
+
+# Full build with tests
+make build
+make test
+
+# Or use CI/CD specific commands
+make ci-build
+```
+
+### 🧹 Cleanup
+
+```bash
+# Clean build artifacts and Docker resources
+make clean
+
+# Reset database
+make db-reset
+```
+
+## Shortcuts and Aliases
+
+For convenience, several short aliases are available:
+
+| Alias | Full Command |
+|-------|-------------|
+| `make dev` | `make dev-start` |
+| `make up` | `make dev-start` |
+| `make down` | `make dev-stop` |
+| `make restart` | `make dev-restart` |
+| `make logs` | `make dev-logs` |
+| `make status` | `make dev-status` |
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Port conflicts:**
+   ```bash
+   # Check what's using the ports
+   netstat -tulpn | grep :8080
+   netstat -tulpn | grep :4200
+   
+   # Stop conflicting services or change ports in docker-compose.yml
+   ```
+
+2. **Docker permission issues:**
+   ```bash
+   # Add user to docker group (Linux)
+   sudo usermod -aG docker $USER
+   
+   # Or run with sudo
+   sudo make dev-start
+   ```
+
+3. **Build failures:**
+   ```bash
+   # Clean and rebuild
+   make clean
+   make build
+   ```
+
+4. **Database connection issues:**
+   ```bash
+   # Reset database
+   make db-reset
+   
+   # Check database logs
+   make dev-logs | grep db
+   ```
+
+### Health Checks
+
+The `make health-check` command will test all service endpoints:
+
+- ✅ Green checkmark = Service is healthy
+- ❌ Red X = Service has issues
+
+### Log Analysis
+
+Use `make dev-logs` to view all service logs. You can also filter:
+
+```bash
+# View logs for specific service
+docker-compose logs -f command-service
+docker-compose logs -f query-service
+docker-compose logs -f client
+```
+
+## CI/CD Integration
+
+Special commands for CI/CD pipelines:
+
+```bash
+# For build pipeline
+make ci-build
+
+# For test pipeline  
+make ci-test
+```
+
+These commands are optimized for automated environments with proper error handling and exit codes.
+
+## Contributing
+
+When adding new commands to the Makefile:
+
+1. Add a brief comment describing the command
+2. Use consistent naming conventions
+3. Include the command in the appropriate help section
+4. Test the command thoroughly
+5. Update this documentation
+
+## Support
+
+If you encounter issues with the Makefile commands:
+
+1. Run `make health-check` to diagnose service health
+2. Check `make dev-logs` for detailed error messages
+3. Try `make clean` followed by `make dev-start` for a fresh start
+4. Ensure all prerequisites are properly installed
