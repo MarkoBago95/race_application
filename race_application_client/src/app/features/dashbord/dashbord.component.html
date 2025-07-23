@@ -1,0 +1,126 @@
+<div class="dashboard-container">
+      <!-- Welcome Header -->
+      <div class="welcome-section">
+        <div class="welcome-content">
+          <h1>👋 Dobrodošli, {{ currentUser?.username }}!</h1>
+          <p class="welcome-subtitle">
+            {{ currentUser?.role === 'ADMINISTRATOR' ? 
+               'Upravljajte trkama i prijavama učesnika' : 
+               'Pronađite i prijavite se na trke koje vas zanimaju' }}
+          </p>
+        </div>
+        <div class="user-badge">
+          <span class="role-indicator" [class]="currentUser?.role?.toLowerCase()">
+            {{ currentUser?.role === 'ADMINISTRATOR' ? '⚙️ Administrator' : '👤 Učesnik' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="stats-grid">
+        <div class="stat-card races-stat">
+          <div class="stat-icon">🏃‍♂️</div>
+          <div class="stat-info">
+            <h3>{{ totalRaces }}</h3>
+            <p>{{ currentUser?.role === 'ADMINISTRATOR' ? 'Ukupno trka' : 'Dostupnih trka' }}</p>
+          </div>
+        </div>
+        
+        <div class="stat-card applications-stat">
+          <div class="stat-icon">📝</div>
+          <div class="stat-info">
+            <h3>{{ totalApplications }}</h3>
+            <p>{{ currentUser?.role === 'ADMINISTRATOR' ? 'Ukupno prijava' : 'Mojih prijava' }}</p>
+          </div>
+        </div>
+        
+        <div class="stat-card" *ngIf="currentUser?.role === 'ADMINISTRATOR'">
+          <div class="stat-icon">👥</div>
+          <div class="stat-info">
+            <h3>{{ uniqueApplicants }}</h3>
+            <p>Jedinstvenih učesnika</p>
+          </div>
+        </div>
+        
+        <div class="stat-card" *ngIf="currentUser?.role === 'APPLICANT'">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-info">
+            <h3>{{ favoriteDistance }}</h3>
+            <p>Omiljena distanca</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="actions-section">
+        <h2>Brze akcije</h2>
+        <div class="actions-grid">
+          <!-- Admin Actions -->
+          <div *ngIf="currentUser?.role === 'ADMINISTRATOR'" class="action-cards">
+            <div class="action-card primary" (click)="navigateToRaces()">
+              <div class="action-icon">🏃‍♂️</div>
+              <h3>Upravljaj trkama</h3>
+              <p>Dodaj, uredi ili obriši trke</p>
+              <button class="action-btn">Idi na trke →</button>
+            </div>
+            
+            <div class="action-card secondary" (click)="navigateToApplications()">
+              <div class="action-icon">📋</div>
+              <h3>Pregled prijava</h3>
+              <p>Vidi sve prijave učesnika</p>
+              <button class="action-btn">Vidi prijave →</button>
+            </div>
+            
+            <div class="action-card accent" (click)="createNewRace()">
+              <div class="action-icon">➕</div>
+              <h3>Nova trka</h3>
+              <p>Brzo kreiranje nove trke</p>
+              <button class="action-btn">Kreiraj →</button>
+            </div>
+          </div>
+
+          <!-- Applicant Actions -->
+          <div *ngIf="currentUser?.role === 'APPLICANT'" class="action-cards">
+            <div class="action-card primary" (click)="navigateToRaces()">
+              <div class="action-icon">🔍</div>
+              <h3>Pronađi trke</h3>
+              <p>Pregledaj dostupne trke i prijavi se</p>
+              <button class="action-btn">Pretraži trke →</button>
+            </div>
+            
+            <div class="action-card secondary" (click)="navigateToApplications()">
+              <div class="action-icon">📝</div>
+              <h3>Moje prijave</h3>
+              <p>Upravljaj svojim prijavama</p>
+              <button class="action-btn">Moje prijave →</button>
+            </div>
+            
+            <div class="action-card accent" (click)="findRecommendedRaces()">
+              <div class="action-icon">⭐</div>
+              <h3>Preporučene trke</h3>
+              <p>Trke prilagođene vama</p>
+              <button class="action-btn">Preporučene →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="activity-section">
+        <h2>Nedavna aktivnost</h2>
+        <div class="activity-list">
+          <div class="activity-item" *ngFor="let activity of recentActivities">
+            <div class="activity-icon">{{ activity.icon }}</div>
+            <div class="activity-content">
+              <p class="activity-text">{{ activity.text }}</p>
+              <span class="activity-time">{{ activity.time }}</span>
+            </div>
+          </div>
+          
+          <div *ngIf="recentActivities.length === 0" class="empty-activity">
+            <p>Nema nedavne aktivnosti</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  

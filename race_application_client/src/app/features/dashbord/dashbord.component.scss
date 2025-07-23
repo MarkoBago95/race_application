@@ -1,0 +1,234 @@
+.dashboard-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .welcome-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .welcome-content h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .welcome-subtitle {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .role-indicator {
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .role-indicator.administrator {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .role-indicator.applicant {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .stat-icon {
+      font-size: 2.5rem;
+      padding: 1rem;
+      border-radius: 12px;
+      background: #f8f9fa;
+    }
+
+    .races-stat .stat-icon { background: #e3f2fd; }
+    .applications-stat .stat-icon { background: #f3e5f5; }
+
+    .stat-info h3 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .stat-info p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .actions-section {
+      margin-bottom: 3rem;
+    }
+
+    .actions-section h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+      font-size: 1.5rem;
+    }
+
+    .action-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .action-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .action-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+
+    .action-card.primary:hover { border-color: #007bff; }
+    .action-card.secondary:hover { border-color: #28a745; }
+    .action-card.accent:hover { border-color: #ffc107; }
+
+    .action-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .action-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+      font-size: 1.3rem;
+    }
+
+    .action-card p {
+      margin: 0 0 1.5rem 0;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .action-btn {
+      background: #f8f9fa;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .action-card.primary .action-btn:hover { background: #007bff; color: white; }
+    .action-card.secondary .action-btn:hover { background: #28a745; color: white; }
+    .action-card.accent .action-btn:hover { background: #ffc107; color: black; }
+
+    .activity-section h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+      font-size: 1.5rem;
+    }
+
+    .activity-list {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+      border-radius: 50%;
+    }
+
+    .activity-text {
+      margin: 0;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .activity-time {
+      color: #666;
+      font-size: 0.875rem;
+    }
+
+    .empty-activity {
+      padding: 3rem;
+      text-align: center;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .welcome-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-cards {
+        grid-template-columns: 1fr;
+      }
+    }

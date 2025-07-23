@@ -1,0 +1,93 @@
+<div class="race-list-container">
+      <div class="header">
+        <h2>🏃‍♂️ Dostupne trke</h2>
+        <button 
+          *ngIf="authService.isAdmin()" 
+          class="btn btn-primary"
+          (click)="showCreateForm = !showCreateForm">
+          {{ showCreateForm ? 'Otkaži' : '+ Nova trka' }}
+        </button>
+      </div>
+
+      <!-- Create Race Form (samo za admin) -->
+      <div *ngIf="showCreateForm && authService.isAdmin()" class="create-form">
+        <h3>Kreiraj novu trku</h3>
+        <form (ngSubmit)="createRace()">
+          <div class="form-group">
+            <label>Naziv trke:</label>
+            <input 
+              type="text" 
+              [(ngModel)]="newRace.name" 
+              name="name"
+              required 
+              placeholder="npr. Zagreb Marathon">
+          </div>
+          
+          <div class="form-group">
+            <label>Distanca:</label>
+            <select [(ngModel)]="newRace.distance" name="distance" required>
+              <option value="">Odaberite distancu</option>
+              <option value="FiveK">5K</option>
+              <option value="TenK">10K</option>
+              <option value="HalfMarathon">Polumaraton (21K)</option>
+              <option value="Marathon">Maraton (42K)</option>
+            </select>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-success" [disabled]="!newRace.name || !newRace.distance">
+              Kreiraj trku
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="cancelCreate()">
+              Otkaži
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="loading" class="loading">
+        Učitavanje trka...
+      </div>
+
+      <!-- Race List -->
+      <div *ngIf="!loading" class="race-grid">
+        <div *ngFor="let race of races" class="race-card">
+          <div class="race-header">
+            <h3>{{ race.name }}</h3>
+            <span class="distance-badge" [class]="getDistanceClass(race.distance)">
+              {{ getDistanceLabel(race.distance) }}
+            </span>
+          </div>
+          
+          <div class="race-actions">
+            <button 
+              *ngIf="!authService.isAdmin()" 
+              class="btn btn-primary"
+              (click)="applyForRace(race)">
+              📝 Prijavi se
+            </button>
+            
+            <div *ngIf="authService.isAdmin()" class="admin-actions">
+              <button class="btn btn-info" (click)="viewApplications(race)">
+                👥 Prijave
+              </button>
+              <button class="btn btn-danger" (click)="deleteRace(race)">
+                🗑️ Obriši
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div *ngIf="!loading && races.length === 0" class="empty-state">
+        <p>Nema dostupnih trka.</p>
+        <button 
+          *ngIf="authService.isAdmin()" 
+          class="btn btn-primary"
+          (click)="showCreateForm = true">
+          Kreiraj prvu trku
+        </button>
+      </div>
+    </div>

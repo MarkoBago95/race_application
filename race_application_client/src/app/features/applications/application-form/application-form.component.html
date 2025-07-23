@@ -1,0 +1,61 @@
+ <div class="application-form-container">
+      <div class="form-card">
+        <h2>📝 Prijava za trku</h2>
+        
+        <div class="race-info" *ngIf="selectedRace">
+          <h3>{{ selectedRace.name }}</h3>
+          <span class="distance-badge">{{ getDistanceLabel(selectedRace.distance) }}</span>
+        </div>
+
+        <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="firstName">Ime *</label>
+            <input 
+              id="firstName"
+              type="text" 
+              formControlName="firstName"
+              [class.error]="applicationForm.get('firstName')?.invalid && applicationForm.get('firstName')?.touched">
+            <div class="error-message" *ngIf="applicationForm.get('firstName')?.invalid && applicationForm.get('firstName')?.touched">
+              Ime je obavezno
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Prezime *</label>
+            <input 
+              id="lastName"
+              type="text" 
+              formControlName="lastName"
+              [class.error]="applicationForm.get('lastName')?.invalid && applicationForm.get('lastName')?.touched">
+            <div class="error-message" *ngIf="applicationForm.get('lastName')?.invalid && applicationForm.get('lastName')?.touched">
+              Prezime je obavezno
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="club">Klub</label>
+            <input 
+              id="club"
+              type="text" 
+              formControlName="club"
+              placeholder="Ime vašeg atletskog kluba (opciono)">
+          </div>
+
+          <div class="form-actions">
+            <button 
+              type="submit" 
+              class="btn btn-primary"
+              [disabled]="applicationForm.invalid || isSubmitting">
+              {{ isSubmitting ? 'Šaljem...' : '📝 Prijaví se' }}
+            </button>
+            
+            <button 
+              type="button" 
+              class="btn btn-secondary"
+              (click)="goBack()">
+              Otkaži
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>

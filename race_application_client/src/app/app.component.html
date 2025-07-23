@@ -1,0 +1,29 @@
+<div class="app-container">
+      <!-- Navigation - prikaži samo ako je korisnik ulogiran -->
+      <nav *ngIf="currentUser$ | async as user" class="navbar">
+        <div class="nav-brand">
+          <h3>🏃‍♂️ Trail Race App</h3>
+        </div>
+        
+        <div class="nav-links">
+          <a routerLink="/dashboard" routerLinkActive="active">🏠 Dashboard</a>
+          <a routerLink="/races" routerLinkActive="active">🏃‍♂️ Trke</a>
+          <a routerLink="/applications" routerLinkActive="active">
+            📝 {{ user.role === 'ADMINISTRATOR' ? 'Sve prijave' : 'Moje prijave' }}
+          </a>
+        </div>
+        
+        <div class="nav-user">
+          <span class="user-info">
+            👤 {{ user.username }} 
+            <small>({{ user.role === 'ADMINISTRATOR' ? 'Admin' : 'Korisnik' }})</small>
+          </span>
+          <button (click)="logout()" class="logout-btn">Odjavi se</button>
+        </div>
+      </nav>
+
+      <!-- Main content -->
+      <main class="main-content" [class.with-nav]="(currentUser$ | async)">
+        <router-outlet></router-outlet>
+      </main>
+    </div>

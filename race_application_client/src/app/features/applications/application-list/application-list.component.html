@@ -1,0 +1,8 @@
+<h2>My Applications</h2>
+<div *ngIf="applications.length === 0">No applications found.</div>
+<ul *ngIf="applications.length > 0">
+  <li *ngFor="let app of applications">
+    {{ app.firstName }} {{ app.lastName }}
+    <button (click)="delete(app.id!)">Delete</button>
+  </li>
+</ul>

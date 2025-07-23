@@ -1,0 +1,25 @@
+<!-- src/app/login/login.component.html -->
+<div class="login-container">
+  <div class="login-card">
+    <h2>🏃‍♂️ Trail Race App</h2>
+    <p>Odaberite svoju ulogu:</p>
+    
+    <div class="role-buttons">
+      <button 
+        class="role-btn applicant-btn" 
+        (click)="login('APPLICANT')">
+        <i class="icon">👤</i>
+        <span>Učesnik</span>
+        <small>Mogu kreirati prijave za trke</small>
+      </button>
+      
+      <button 
+        class="role-btn admin-btn" 
+        (click)="login('ADMINISTRATOR')">
+        <i class="icon">⚙️</i>
+        <span>Administrator</span>
+        <small>Mogu upravljati trkama i prijavama</small>
+      </button>
+    </div>
+  </div>
+</div>
