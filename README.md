@@ -12,18 +12,8 @@ Ova aplikacija omogućuje upravljanje trail utrkama i prijavama trkača. Građen
 
 ## 🧱 Arhitektura
 
-lua
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/e487adbe-8cf4-487b-a858-c2c022a3468b" />
 
-
-                            Angular Client
-                                  |
-           ---------------------------------------------------
-           |                                                 |
-  race-application-command-service               race-application-query-service
-           |                                                 |
-           -----------------> RabbitMQ <----------------------
-                                  |
-                             PostgreSQL DB
 
 
  
