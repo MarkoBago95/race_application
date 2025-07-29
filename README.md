@@ -14,6 +14,7 @@ Ova aplikacija omogućuje upravljanje trail utrkama i prijavama trkača. Građen
 
 lua
 
+
                             Angular Client
                                   |
            ---------------------------------------------------
@@ -23,6 +24,9 @@ lua
            -----------------> RabbitMQ <----------------------
                                   |
                              PostgreSQL DB
+
+
+ 
 markdown
 
 
